@@ -19,6 +19,7 @@ impl GameOfLife {
         })
     }
 
+    #[allow(dead_code)]
     pub fn new_with_blinker(rows: usize, cols: usize) -> Result<GameOfLife, GameOfLifeErrors> {
         let mut field = Box::new(vec![vec![false; cols]; rows]);
 

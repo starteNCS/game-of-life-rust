@@ -1,33 +1,24 @@
 use crate::gol::GameOfLife;
 use sdl2::rect::Rect;
-use sdl2::{Sdl, VideoSubsystem};
+use sdl2::VideoSubsystem;
 use sdl2::render::WindowCanvas;
 use sdl2::pixels::Color;
 
 pub struct Renderer {
-    pub sdl: Sdl,
-    video_subsystem: VideoSubsystem,
     pub canvas: WindowCanvas,
     width: usize,
     height: usize
 }
 
 impl Renderer {
-    pub fn new(width: usize, height: usize) -> Renderer {
-        let sdl = sdl2::init().unwrap();
-        let video_subsystem = sdl.video().unwrap();
-
-        let window = video_subsystem.window("Rust Game of Life", width as u32, height as u32)
+    pub fn new(video_subsystems: &VideoSubsystem, width: usize, height: usize) -> Renderer {
+        let window = video_subsystems.window("Rust Game of Life", width as u32, height as u32)
             .position_centered()
             .build()
             .unwrap();
 
-        let canvas = window.into_canvas().build().unwrap();
-
         return Renderer {
-            sdl,
-            video_subsystem,
-            canvas,
+            canvas: window.into_canvas().build().unwrap(),
             width,
             height
         }
